@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<!--[if IE 7]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="ie9" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="en"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		<title>Columns - Examples</title>
+		
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+	   	 
+	    <link id="style" href="../css/classic.css" rel="stylesheet" media="screen">
+	    
+	    <style>
+	    	body {
+		    	font-family: helvetica, sans-serif;
+	    	}
+	    	
+	    	.source {
+		    	font-family: monospace;
+		    	padding: 10px;
+	    	}
+	    </style>
+    </head>
+    <body>
+        <h1>Examples of using Columns</h1>
+        
+		<label>Change Theme:</label>
+		<select id="theme">
+			<option value="classic.css">Classic</option>
+			<option value="clean.css">Clean</option>
+		</select>
+			
+        
+        <h2>Example 1: Setting data inline</h2>
+		<div id="example1"></div>
+		<pre class="source">
+$('#example1').columns({
+	data: [
+		{'Emp. Number': 00001, 'First Name':'John', 'Last Name':'Smith' },
+		{'Emp. Number': 00002, 'First Name':'Jane', 'Last Name':'Doe' },
+		{'Emp. Number': 00003, 'First Name':'Ted', 'Last Name':'Johnson' },
+		{'Emp. Number': 00004, 'First Name':'Betty', 'Last Name':'Smith' },
+		{'Emp. Number': 00005, 'First Name':'Susan', 'Last Name':'Wilson' },
+		{'Emp. Number': 00006, 'First Name':'John', 'Last Name':'Doe' },
+		{'Emp. Number': 00007, 'First Name':'Bill', 'Last Name':'Watson' },
+		{'Emp. Number': 00008, 'First Name':'Walter', 'Last Name':'Wright' }
+	]
+});
+		</pre>
+		
+		<h2>Example 2: Setting data from external source</h2>
+		<div id="example2"></div>
+		<pre class="source"> 
+$.ajax({
+	url:'json.php',
+	dataType: 'json', 
+	success: function(json) { 
+		example2 = $('#example2').columns({
+			data:json, 
+		}); 
+	}
+}); 
+		</pre>
+		
+		<h2>Example 3: Using a custom schema</h2>
+		<div id="example3"></div>
+		<pre class="source"> 
+$.ajax({
+	url:'custom.json',
+	dataType: 'json', 
+	success: function(json) { 
+		example3 = $('#example3').columns({
+			data:json,
+			schema: [
+				{"header":"ID", "key":"id", "template":"000{{id}}"},
+				{"header":"Name", "key":"name"},
+				{"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'}
+				{"header":"Gender", "key":"gender"}
+			]
+
+		}); 
+	}
+}); 
+		</pre>
+		
+		<h2>Example 4: Using a conditional statement</h2>
+		<div id="example4"></div>
+		<pre class="source"> 
+$.ajax({
+	url:'custom.json',
+	dataType: 'json', 
+	success: function(json) { 
+		example4 = $('#example4').columns({
+			data:json,
+			schema: [
+				{"header":"ID", "key":"id", "template":"000{{id}}"},
+				{"header":"Name", "key":"name"},
+				{"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'},
+				{"header":"Gender", "key":"gender", "condition":function(val) {return (val=="male");}}
+			]
+
+		}); 
+	}
+}); 
+		</pre>
+		
+		<script src="../js/jquery.min.js"></script>
+        <script src="../js/jquery.columns-1.0.min.js"></script>
+		<script>
+			//example 1 
+			$('#example1').columns({
+				data: [
+					{'Emp. Number': 00001, 'First Name':'John', 'Last Name':'Smith' },
+					{'Emp. Number': 00002, 'First Name':'Jane', 'Last Name':'Doe' },
+					{'Emp. Number': 00003, 'First Name':'Ted', 'Last Name':'Johnson' },
+					{'Emp. Number': 00004, 'First Name':'Betty', 'Last Name':'Smith' },
+					{'Emp. Number': 00005, 'First Name':'Susan', 'Last Name':'Wilson' },
+					{'Emp. Number': 00006, 'First Name':'John', 'Last Name':'Doe' },
+					{'Emp. Number': 00007, 'First Name':'Bill', 'Last Name':'Watson' },
+					{'Emp. Number': 00008, 'First Name':'Walter', 'Last Name':'Wright' }
+				]
+			});
+			
+			//example 2 
+			$.ajax({
+				url:'data.json',
+				dataType: 'json', 
+				success: function(json) { 
+					example2 = $('#example2').columns({
+						data:json
+					}); 
+				}
+			}); 
+			
+			//example 3
+			$.ajax({
+				url:'data.json',
+				dataType: 'json', 
+				success: function(json) { 
+					example3 = $('#example3').columns({
+						data:json,
+						schema: [
+							{"header":"ID", "key":"id", "template":"000{{id}}"},
+							{"header":"Name", "key":"name"},
+							{"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
+							{"header":"Gender", "key":"gender"}
+						]
+ 
+					}); 
+				}
+			}); 
+			
+			//example 4
+			$.ajax({
+				url:'data.json',
+				dataType: 'json', 
+				success: function(json) { 
+					example4 = $('#example4').columns({
+						data:json,
+						schema: [
+							{"header":"ID", "key":"id", "template":"000{{id}}"},
+							{"header":"Name", "key":"name"},
+							{"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
+							{"header":"Gender", "key":"gender", "condition":function(val) {return (val=="male");}}
+						]
+ 
+					}); 
+				}
+			}); 
+
+			$('#theme').change(function() {
+				$('link').attr('href', '../css/'+$(this).val());
+			})
+		</script> 	
+		
+    </body>
+</html>
