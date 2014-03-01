@@ -295,7 +295,7 @@ if(!window.console) { var console = { log: function() { } } };
 		}, 
 		chevron: function(template, data) {
 			$.each(data, function(key, val){
-				var re = new RegExp('{{'+key+'}}', 'g')
+				var re = new RegExp('{{'+key+'}}', 'g');
 				template = template.replace(re, val)
 			});
 			
