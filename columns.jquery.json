@@ -1,0 +1,36 @@
+{
+    "name": "columns",
+    "title": "jQuery Columns",
+    "description": "jQuery plugin for searching, sorting, and paginating JSON Data.",
+    "keywords": [
+        "columns",
+        "table",
+        "paginate",
+        "sorting"
+        
+    ],
+    "version": "2.0.0",
+    "author": {
+        "name": "Michael Eisenbraun"
+    },
+    "maintainers": [
+        {
+            "name": "Michael Eisenbraun",
+            "email": "me@micheleisenbraun.com",
+            "url": "http://eisenbraun.github.io/"
+        }
+    ],
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "https://github.com/eisenbraun/columns/blob/master/LICENSE.txt"
+        }
+    ],
+    "bugs": "https://github.com/eisenbraun/columns/issues",
+    "homepage": "http://eisenbraun.github.io/columns/",
+    "docs": "http://eisenbraun.github.io/columns/",
+    "download": "https://github.com/eisenbraun/columns/zipball/master",
+    "dependencies": {
+        "jquery": ">=1.7"
+    }
+}
