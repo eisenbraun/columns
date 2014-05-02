@@ -7,6 +7,8 @@
     <meta name="description" content="Columns : Search, sort, and paginate your JSON data" />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/hemisu-light.css">
 
     <title>Columns</title>
   </head>
@@ -44,23 +46,23 @@
 
 <p>Include the jQuery Library 1.7 or later and Columns Plugin File: </p>
 
-<pre><code>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"&gt;&lt;/script&gt;
+<pre class="prettyprint"><code>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"&gt;&lt;/script&gt;
 &lt;script src="js/jquery.columns-2.0.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
 <p>Include a pre-built Columns theme or create your own</p>
 
-<pre><code>&lt;link rel="stylesheet" href="css/classic.css"&gt;
+<pre class="prettyprint"><code>&lt;link rel="stylesheet" href="css/classic.css"&gt;
 </code></pre>
 
 <p>Because Columns create all the necessary HTML dynamically, the only HTML needed is a empty HTML element, such as a <code>&lt;div&gt;</code> tag, with the corresponding id as using in the initialization.</p>
 
-<pre><code>&lt;div id="columns"&gt;&lt;/div&gt;
+<pre class="prettyprint"><code>&lt;div id="columns"&gt;&lt;/div&gt;
 </code></pre>
 
 <p>Finally, initialize Columns. </p>
 
-<pre><code>&lt;script&gt;
+<pre class="prettyprint"><code>&lt;script&gt;
   $(document).ready(function() {
     var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}]; 
     $('#columns').columns({data:json});
@@ -81,7 +83,7 @@
 
 <p>REQUIRED. This is the data that columns uses to build the table.</p>
 
-<pre><code> var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code> var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
  $('#columns').columns({ 
    data: json
  });
@@ -93,7 +95,7 @@
 
 <p>Default: <code>'ui-table-rows-even'</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json, 
   evenRowClass: 'even-rows'
@@ -106,7 +108,7 @@ $('#columns').columns({
 
 <p>Default: <code>'ui-table-rows-even'</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json, 
   evenRowClass: 'odd-rows'
@@ -119,7 +121,7 @@ $('#columns').columns({
 
 <p>Default: <code>true</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#paginate').paginate({ 
   data: json,
   liveSearch: false
@@ -144,7 +146,7 @@ $('#paginate').paginate({
 
 <p>Default: <code>null</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json,
   query:'row2'
@@ -157,7 +159,7 @@ $('#columns').columns({
 
 <p>Default: <code>false</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json,
   sortBy: 'col2',
@@ -172,7 +174,7 @@ Each schema object requires two attributes: header (the title of column) and key
 
 <p>Default: <code>null</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -188,7 +190,7 @@ $('#columns').columns({
 
 <p>Default: <code>null</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#paginate').paginate({ 
   data: json,
   searchableFields: ['col1'],
@@ -217,7 +219,7 @@ $('#paginate').paginate({
 
 <p>Default: <code>null</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#paginate').paginate({ 
   data: json,
   sortableFields: ['col1'],
@@ -234,7 +236,7 @@ $('#paginate').paginate({
 
 <p>Default: <code>null</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json,
   sortBy: 'col2'
@@ -247,7 +249,7 @@ $('#columns').columns({
 
 <p>Default: <code>null</code></p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json,
   template: 'template/custom.mst'
@@ -267,7 +269,7 @@ $('#columns').columns({
 
 <p>This is a condition that each column data must meet to be displayed. The function must return a <code>Boolean</code>.</p>
 
-<pre><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];`
+<pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];`
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -281,7 +283,7 @@ $('#columns').columns({
 
 <p>REQUIRED. The title for the column header.</p>
 
-<pre><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+<pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -295,7 +297,7 @@ $('#columns').columns({
 
 <p>REQUIRED. The corresponding data attribute key for this columns data.</p>
 
-<pre><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+<pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -309,7 +311,7 @@ $('#columns').columns({
 
 <p>The template allow for a row data to be customized to include additional HTML and content. Data values be added to the template by including the data attribute key between double curly brackets <code>({{col1}})</code>.</p>
 
-<pre><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+<pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -330,7 +332,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getObject');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getObject');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this</code>.</p>
@@ -341,7 +343,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getPage');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getPage');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.page</code>.</p>
@@ -352,7 +354,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getQuery');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getQuery');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.query</code>.</p>
@@ -363,7 +365,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getRange');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getRange');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.range</code>.</p>
@@ -374,7 +376,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getRows');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getRows');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.rows</code>.</p>
@@ -385,7 +387,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getTemplate');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getTemplate');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.template</code>.</p>
@@ -396,7 +398,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getThead');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getThead');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.thead</code>.</p>
@@ -406,7 +408,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getTotal');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getTotal');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.total</code>.</p>
@@ -417,7 +419,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('getView');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getView');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.view</code>.</p>
@@ -428,7 +430,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('gotoPage', 3);
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('gotoPage', 3);
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.gotoPage(3)</code>.</p>
@@ -439,7 +441,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('pageExists', 3);
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('pageExists', 3);
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.pageExists(3)</code>.</p>
@@ -450,7 +452,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre><code>var columns_object = $('#columns').columns('resetData');
+<pre class="prettyprint"><code>var columns_object = $('#columns').columns('resetData');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.resetDate()</code>.</p>
@@ -464,7 +466,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>The basic plugin structure should look like this. All plugins must include a init method</p>
 
-<pre><code>if (typeof ColumnsPlugins === 'undefined') var ColumnsPlugins = {};
+<pre class="prettyprint"><code>if (typeof ColumnsPlugins === 'undefined') var ColumnsPlugins = {};
   ColumnsPlugins.your_plugin = {
       init: function() {
 
@@ -474,7 +476,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>Plugins can be added to Columns by using the plugins option</p>
 
-<pre><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+<pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
 $('#columns').columns({ 
   data: json,
   plugins: ['gotopage']
@@ -492,6 +494,6 @@ $('#columns').columns({
     </div>
 
     
-
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
   </body>
 </html>
