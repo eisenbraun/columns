@@ -108,10 +108,11 @@ $.ajax({
 		</pre>
 		
 		<script src="../js/jquery.min.js"></script>
-        <script src="../js/jquery.columns-1.0.min.js"></script>
+		<script src="../plugins/gotopage.js"></script>
+        <script src="../js/jquery.columns-2.0.min.js"></script>
 		<script>
 			//example 1 
-			$('#example1').columns({
+			var columns1 = $('#example1').columns({
 				data: [
 					{'Emp. Number': 00001, 'First Name':'John', 'Last Name':'Smith' },
 					{'Emp. Number': 00002, 'First Name':'Jane', 'Last Name':'Doe' },
@@ -146,8 +147,10 @@ $.ajax({
 							{"header":"ID", "key":"id", "template":"000{{id}}"},
 							{"header":"Name", "key":"name"},
 							{"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
-							{"header":"Gender", "key":"gender"}
-						]
+							{"header":"Gender", "key":"gender", "hide":true}
+						],
+						templateFile: '../templates/custom.mst',
+						plugins:['gotopage']
  
 					}); 
 				}
