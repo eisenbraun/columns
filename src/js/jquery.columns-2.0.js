@@ -10,8 +10,8 @@
 if(!window.console) { var console = { log: function() { } } };   
 
 (function($) {
-	$.fn.columns = function(options) {
-		var val = []; 
+    $.fn.columns = function(options) {
+        var val = []; 
 		var args = Array.prototype.slice.call(arguments, 1);
 	
 		if(typeof options === 'string') { 

@@ -77,7 +77,7 @@ $.ajax({
 			schema: [
 				{"header":"ID", "key":"id", "template":"000{{id}}"},
 				{"header":"Name", "key":"name"},
-				{"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'}
+				{"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'},
 				{"header":"Gender", "key":"gender"}
 			]
 
@@ -109,7 +109,7 @@ $.ajax({
 		
 		<script src="../js/jquery.min.js"></script>
 		<script src="../plugins/gotopage.js"></script>
-        <script src="../js/jquery.columns-2.0.min.js"></script>
+        <script src="../js/jquery.columns-2.1.min.js"></script>
 		<script>
 			//example 1 
 			var columns1 = $('#example1').columns({
@@ -144,8 +144,8 @@ $.ajax({
 					example3 = $('#example3').columns({
 						data:json,
 						schema: [
-							{"header":"ID", "key":"id", "template":"000{{id}}"},
-							{"header":"Name", "key":"name"},
+							{"header":"ID", "key":"id", "template":"000{{id}}-{{name}}"},
+							{"header":"Name", "key":"name", "template":'{{#name}} {{name}} {{/name}} {{^name}} Unknown Author {{/name}}'},
 							{"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
 							{"header":"Gender", "key":"gender", "hide":true}
 						],
@@ -165,7 +165,7 @@ $.ajax({
 						data:json,
 						schema: [
 							{"header":"ID", "key":"id", "template":"000{{id}}"},
-							{"header":"Name", "key":"name"},
+							{"header":"Name", "key":"name", "template":'{{#name}} {{name}} {{/name}} {{^name}} Unknown Author {{/name}}'},
 							{"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
 							{"header":"Gender", "key":"gender", "condition":function(val) {return (val=="male");}}
 						]

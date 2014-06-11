@@ -9,7 +9,7 @@
   if (typeof exports === "object" && exports) {
     factory(exports); // CommonJS
   } else if (typeof define === "function" && define.amd) {
-    define(factory({})); // AMD
+    //define(factory({})); // AMD
   } else {
     global.Mustache = factory({}); // <script>
   }

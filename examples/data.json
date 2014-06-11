@@ -41,7 +41,7 @@
     {
         "id": 3,
         "age": 20,
-        "name": "Howard Mueller",
+        "name": "",
         "gender": "male",
         "company": "Zomboid",
         "email": "howardmueller@zomboid.com",
