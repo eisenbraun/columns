@@ -47,7 +47,7 @@
 <p>Include the jQuery Library 1.7 or later and Columns Plugin File: </p>
 
 <pre class="prettyprint"><code>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"&gt;&lt;/script&gt;
-&lt;script src="js/jquery.columns-2.0.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/jquery.columns-2.1.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
 <p>Include a pre-built Columns theme or create your own</p>
@@ -84,6 +84,7 @@
 <p>REQUIRED. This is the data that columns uses to build the table.</p>
 
 <pre class="prettyprint"><code> var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+ 
  $('#columns').columns({ 
    data: json
  });
@@ -96,6 +97,7 @@
 <p>Default: <code>'ui-table-rows-even'</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json, 
   evenRowClass: 'even-rows'
@@ -109,6 +111,7 @@ $('#columns').columns({
 <p>Default: <code>'ui-table-rows-even'</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json, 
   evenRowClass: 'odd-rows'
@@ -122,7 +125,8 @@ $('#columns').columns({
 <p>Default: <code>true</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
-$('#paginate').paginate({ 
+
+$('#columns').columns({ 
   data: json,
   liveSearch: false
 });
@@ -147,6 +151,7 @@ $('#paginate').paginate({
 <p>Default: <code>null</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json,
   query:'row2'
@@ -160,6 +165,7 @@ $('#columns').columns({
 <p>Default: <code>false</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json,
   sortBy: 'col2',
@@ -175,6 +181,7 @@ Each schema object requires two attributes: header (the title of column) and key
 <p>Default: <code>null</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -191,7 +198,8 @@ $('#columns').columns({
 <p>Default: <code>null</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
-$('#paginate').paginate({ 
+
+$('#columns').columns({ 
   data: json,
   searchableFields: ['col1'],
   schema:[
@@ -220,7 +228,8 @@ $('#paginate').paginate({
 <p>Default: <code>null</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
-$('#paginate').paginate({ 
+
+$('#columns').columns({ 
   data: json,
   sortableFields: ['col1'],
   schema:[
@@ -237,6 +246,7 @@ $('#paginate').paginate({
 <p>Default: <code>null</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json,
   sortBy: 'col2'
@@ -250,6 +260,7 @@ $('#columns').columns({
 <p>Default: <code>null</code></p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json,
   template: 'template/custom.mst'
@@ -269,7 +280,8 @@ $('#columns').columns({
 
 <p>This is a condition that each column data must meet to be displayed. The function must return a <code>Boolean</code>.</p>
 
-<pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];`
+<pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -284,6 +296,7 @@ $('#columns').columns({
 <p>REQUIRED. The title for the column header.</p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -298,6 +311,7 @@ $('#columns').columns({
 <p>REQUIRED. The corresponding data attribute key for this columns data.</p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+
 $('#columns').columns({ 
   data: json,
   schema:[
@@ -309,13 +323,14 @@ $('#columns').columns({
 
 <hr><p><strong>template</strong> <em>(String)</em></p>
 
-<p>The template allow for a row data to be customized to include additional HTML and content. Data values be added to the template by including the data attribute key between double curly brackets <code>({{col1}})</code>.</p>
+<p>The template allows for a row data to be customized by utilizing a Mustache template. All Mustache compatible syntax is available to the Schema Template.</p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+
 $('#columns').columns({ 
   data: json,
   schema:[
-      {"header":"Numbers","key":"col1", "template":"This is row &lt;strong&gt;{{col1}}&lt;/strong&gt;." },
+      {"header":"Numbers","key":"col1", "template":"This is row {{#col1}}&lt;strong&gt;{{col1}}&lt;/strong&gt;{{/col1}}."},
       {"header":"Words","key":"col2"}
   ]
 });
@@ -477,6 +492,7 @@ This method returns an interger of the table's current total. Note: This is tota
 <p>Plugins can be added to Columns by using the plugins option</p>
 
 <pre class="prettyprint"><code>var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}];
+
 $('#columns').columns({ 
   data: json,
   plugins: ['gotopage']
