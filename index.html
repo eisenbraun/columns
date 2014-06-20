@@ -47,7 +47,7 @@
 <p>Include the jQuery Library 1.7 or later and Columns Plugin File: </p>
 
 <pre class="prettyprint"><code>&lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"&gt;&lt;/script&gt;
-&lt;script src="js/jquery.columns-2.1.min.js"&gt;&lt;/script&gt;
+&lt;script src="js/jquery.columns.min.js"&gt;&lt;/script&gt;
 </code></pre>
 
 <p>Include a pre-built Columns theme or create your own</p>
@@ -65,7 +65,9 @@
 <pre class="prettyprint"><code>&lt;script&gt;
   $(document).ready(function() {
     var json = [{"col1":"row1", "col2":"row1", "col3":"row1"}, {"col1":"row2", "col2":"row2", "col3":"row2"}]; 
-    $('#columns').columns({data:json});
+    $('#columns').columns({
+      data:json
+    });
   });
 &lt;/script&gt;
 </code></pre>
@@ -114,7 +116,7 @@ $('#columns').columns({
 
 $('#columns').columns({ 
   data: json, 
-  evenRowClass: 'odd-rows'
+  oddRowClass: 'odd-rows'
 });
 </code></pre>
 
