@@ -19,19 +19,19 @@
 		<thead>
 			{{#headers}} 
 				{{#sortable}}
-					<th class="" data-columns-sortby="{{key}}">{{header}}</th>
+					<th class="ui-table-sortable" data-columns-sortby="{{key}}">{{header}}</th>
 				{{/sortable}}
 				
 				{{#notSortable}}
-					<th class="" data-columns-sortby="{{key}}">{{header}}</th>
+					<th class="">{{header}}</th>
 				{{/notSortable}}
 				
 				{{#sortedUp}}
-					<th class="ui-table-sort-up" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25B2;</th>
+					<th class="ui-table-sort-up ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25B2;</span></th>
 				{{/sortedUp}}
 				
 				{{#sortedDown}}
-					<th class="ui-table-sort-down" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25BC;</th>
+					<th class="ui-table-sort-down ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25BC;</span></th>
 				{{/sortedDown}}	
 			{{/headers}}	
 		</thead>
@@ -50,9 +50,9 @@
 	
 	<!-- Columns Controls  -->
 	<div class="ui-table-footer">
-		<span class="ui-table-show-rows">Show rows: {{{showRowsMenu}}}</span> 
+		<span class="ui-table-size">Show rows: {{{showRowsMenu}}}</span> 
 		<span class="ui-table-results">Results:
-			<strong>{{pageRange.start}} &ndash; {{pageRange.end}}</strong> of
+			<strong>{{resultRange.start}} &ndash; {{resultRange.end}}</strong> of
 			<strong>{{tableTotal}}</strong>
 		</span> 
 		<span class="ui-table-controls">

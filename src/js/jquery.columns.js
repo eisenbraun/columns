@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  *
  * Author: Michael Eisenbraun
- * Version: 2.1.0
+ * Version: 2.2.0
  * Requires: jQuery 1.7.2+
  * Documentation: http://eisenbraun.github.io/columns/
  */
@@ -58,7 +58,7 @@ if (!window.console) {
         }
         
         /** PLUGIN CONSTANTS */
-        this.VERSION = '2.1.0';
+        this.VERSION = '2.2.0';
 
         /** PLUGIN METHODS */
 
@@ -123,29 +123,29 @@ if (!window.console) {
         * data type. 
         */
         this.filter = function() {
-            var $this = this;
-            
+            var $this = this,
+            length = $this.searchableFields.length;
+
             if ($this.query) {
+                var re = new RegExp($this.query, "gi");
+
                 $this.data = $.grep($this.data, function(obj) {
-                    for (var val in obj) {
-                        if ($.inArray(val, $this.searchableFields) !== -1) {
-                            if (typeof obj[val] === 'string') {
-                                var re = new RegExp($this.query, "gi");
-                                if (obj[val].match(re)) {
-                                    return true;
-                                }
-                            } else if (typeof obj[val] === 'number') {
-                                if (obj[val] == $this.query) {
-                                    return true;
-                                }
+                    for (var key = 0; key < length; key++) {
+                        if (typeof obj[$this.searchableFields[key]] === 'string') {
+                            if (obj[$this.searchableFields[key]].match(re)) {
+                                return true;
+                            }
+                        } else if (typeof obj[$this.searchableFields[key]] === 'number') {
+                            if (obj[$this.searchableFields[key]] == $this.query) {
+                                return true;
                             }
                         }
                     }
-                    
                     return false;
                 });
             }
-            
+
+            /** setting data total */ 
             $this.total = $this.data.length;
         };
 
@@ -156,20 +156,18 @@ if (!window.console) {
         */
         this.paginate = function() {
             var $this = this;
-            
+
             /** calculate the number of pages */
             $this.pages = Math.ceil($this.data.length/$this.size);
             
             /** retrieve page number */
             $this.page = ($this.page <= $this.pages ? $this.page : 1);
             
+            /** set range of rows */ 
+            $this.setRange(); 
             
-            var start = (($this.page -1) * ($this.size));
-            var end = (start + $this.size < $this.total) ? start + $this.size : $this.total;
-            
-            $this.range = {"start":start+1, "end":end};
-            
-            $this.data = $this.data.slice(start,end);
+            $this.data = $this.data.slice($this.range.start-1,$this.range.end);
+
         };
 
         /**
@@ -177,40 +175,47 @@ if (!window.console) {
         * Only displays the data object rows that meet the given criteria.
         * 
         * Condition vs Filter: 
-        * Condition is true if the value meets a user determined conditional statement, 
-        * which is found in the schema. Condition is column specific. Condition is
-        * is checked before filter.
+        * Condition is true if the value meets a determined conditional statement, 
+        * which is found in the schema. Condition is column specific. Since conditions 
+        * are not subject to the end users actions, condition is only checked once during
+        * initialization.
         *
         * Filter is true if the value matches the query. A query is compared across 
-        * all searchable columns.
+        * all searchable columns. Filter is checked every time there is a query value.
+        *
         *
         */
         this.condition = function() {
             var $this = this,
-            schema = [],
-            temp = {};
+            schema = [];
+
             if ($this.schema) {
-                $.each($this.data, function(key, data) {
+                var dataLength = $this.data.length,
+                schemaLength = $this.schema.length;
+
+                for (var row = 0; row < dataLength; row++) {
+                    var data = $this.data[row],
                     temp = {};
                     
-                    $.each($this.schema, function(key, val) {
+                    for (var key = 0; key < schemaLength; key++) {
+                        var val = $this.schema[key]; 
+
                         if(val.condition) {
                             if(!val.condition(data[val.key])) {
                                 temp = null;
-                                return false;
+                                break;
                             }
                         }
                         
                         temp[val.key] = data[val.key];
-                    });
+                    }
                     
                     if (temp) {
                         schema.push(temp);
                     }
-                });
-            
+                }
+                
                 $this.data = schema;
-
             }
         };
 
@@ -224,17 +229,22 @@ if (!window.console) {
         
         this.create = function() {
             var $this = this;
-            
+
             //Building Data
             $this.resetData();
+
+            if($this.searching) {
+                $this.filter();
+            }
+
+            if($this.sorting) { 
+                $this.sort();
+            }
             
-            $this.condition();
-
-            $this.sort();
-
-            $this.filter();
-
-            $this.paginate();
+            if($this.paginating) {
+                $this.paginate();
+            }
+            
 
             /** Building Column Elements */
             function buildThead() {
@@ -245,7 +255,6 @@ if (!window.console) {
                         var th = {};
                         
                         if ($.inArray(col.key,$this.sortableFields) === -1) {
-                            console.log(col.key);
                             th.notSortable = true;
                         } else if ($this.sortBy === col.key) {
                             if ($this.reverse) {
@@ -325,7 +334,7 @@ if (!window.console) {
             buildTable();
             buildShowRowsMenu();
             
-            /** Creating Table from Handlebar Template */
+            /** Creating Table from Mustache Template */
             var view = {
                 prevPage: $this.page-1,
                 nextPage: $this.page+1,
@@ -340,20 +349,20 @@ if (!window.console) {
                 search: $this.search,
                 table: $this.table
             };
+
             $.extend($this.view, view);
-            
+
             /** Calling plugins, if any */
             if ($this.plugins) {
                 $.each($this.plugins, function(key, val) {
                     if (typeof ColumnsPlugins !== 'undefined') {
                         if (typeof ColumnsPlugins[val] !== 'undefined') {
-                            ColumnsPlugins[val].init.call($this);
+                            ColumnsPlugins[val].create.call($this);
                         }
                     }
                 });
             }
-            
-            
+
             if ($this.search) {
                 $this.$el.html($this.chevron($this.template, $this.view));
                 $this.search = false;
@@ -365,7 +374,7 @@ if (!window.console) {
         
         this.init = function() {
             var $this = this;
-            
+
             function buildSchema() {
                 $this.schema = [];
                 $.each($this.data[0], function(key) {
@@ -404,9 +413,61 @@ if (!window.console) {
                 $this.master = [];
                 $this.view = {};
                 
-                /** making a master copy of data */
-                $.extend($this.master, $this.data);
-                
+                /** setting up DOM */
+                $this.$el.addClass('columns');
+
+                /** creating listeners */
+
+                /** sort listener */
+                $this.$el.on('click', '.ui-table-sortable', function(event) {
+                    var sortBy = $(this).data('columns-sortby');
+                    
+                    if ($this.sortBy === sortBy) {
+                        $this.reverse = ($this.reverse) ? false : true;
+                    }
+
+                    $this.sortBy = sortBy
+
+                    $this.sortHandler(event);
+                });
+
+                /** page listener */
+                $this.$el.on('click', '.ui-table-control-next, .ui-table-control-prev', function(event) {
+                    $this.page = $(this).data('columns-page');
+                    
+                    $this.pageHandler(event);
+                });
+
+                /** search listener */
+                $this.$el.on('keyup', '.ui-table-search', function(event) {
+                    $this.query = $(this).val();
+                    
+                    $this.searchHandler(event); 
+                });
+
+                /** size listener */
+                $this.$el.on('change', '.ui-table-size select', function(event) {
+                    $this.size = parseInt($(this).val());
+                    
+                    $this.sizeHandler(event);
+                });
+
+                /** Calling plugins, if any */
+                if ($this.plugins) {
+                    $.each($this.plugins, function(key, val) {
+                        if (typeof ColumnsPlugins !== 'undefined') {
+                            if (typeof ColumnsPlugins[val] !== 'undefined') {
+                                ColumnsPlugins[val].init.call($this);
+                            }
+                        }
+                    });
+                }
+
+                /** condition never change, so only checked once. */
+                if($this.conditioning) {
+                    $this.condition();
+                }
+
                 /** updating defaults */
                 if (!$this.schema) {
                     buildSchema();
@@ -424,46 +485,10 @@ if (!window.console) {
                     getTemplateFile();
                 }
 
-                /** setting up DOM */
-                $this.$el.addClass('columns');
+                /** making a master copy of data */
+                $.extend($this.master, $this.data);
 
-                /** creating listeners */
-                $this.$el.on('click', 'th', function() {
-                    var sortBy = $(this).data('columns-sortby');
-                    
-                    if ($.inArray(sortBy, $this.sortableFields) !== -1) {
-                        if ($this.sortBy === sortBy) {
-                            $this.reverse = ($this.reverse) ? false : true;
-                        }
-                        
-                        $this.sortBy = sortBy;
-                        $this.page = 1;
-                        $this.create();
-                    }
-                });
-
-                $this.$el.on('click', '[data-columns-page]', function() {
-                    $this.page = $(this).data('columns-page');
-                    $this.create();
-                });
-                
-                $this.$el.on('keyup', '[data-columns-search]', function(e) {
-                    if($this.liveSearch) {
-                        $this.query = $(this).val();
-                        $this.create();
-                    } else {
-                        if(e.keyCode == '13') {
-                            $this.query = $(this).val();
-                            $this.create();
-                        }
-                    }
-                });
-                
-                $this.$el.on('change', '.ui-table-show-rows select', function() {
-                    $this.size = parseInt($(this).val());
-                    $this.create();
-                });
-
+                /** creating columns table */
                 $this.create();
 
             } else {
@@ -486,6 +511,7 @@ if (!window.console) {
         plugins: null,
         query: null,
         reverse: false,
+        pagination: true,
         schema: null,
         search: true,
         searchableFields: null,
@@ -495,9 +521,36 @@ if (!window.console) {
         sortBy: null,
         table: true,
         templateFile: null,
-        template: '{{#search}}<div class="ui-columns-search"><input class="ui-table-search" placeholder="Search" type="text" name="query" data-columns-search="true" value="{{query}}" /></div>{{/search}}{{#table}}<div class="ui-columns-table" data-columns-table="true"><table class="ui-table"><thead>{{#headers}}{{#sortable}}<th class="" data-columns-sortby="{{key}}">{{header}}</th>{{/sortable}}{{#notSortable}}<th class="" data-columns-sortby="{{key}}">{{header}}</th>{{/notSortable}}{{#sortedUp}}<th class="ui-table-sort-up" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25B2;</th>{{/sortedUp}}{{#sortedDown}}<th class="ui-table-sort-down" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25BC;</th>{{/sortedDown}}{{/headers}}</thead><tbody>{{#rows}}{{{.}}}{{/rows}}</tbody></table><div class="ui-table-footer"><span class="ui-table-show-rows">Show rows: {{{showRowsMenu}}}</span><span class="ui-table-results">Results: <strong>{{resultRange.start}} &ndash; {{resultRange.end}}</strong> of <strong>{{tableTotal}}</strong></span><span class="ui-table-controls">{{#prevPageExists}}<span class="ui-table-control-prev" data-columns-page="{{prevPage}}"><img src="images/arrow-left.png"></span>{{/prevPageExists}}{{^prevPageExists}}<span class="ui-table-control-disabled"><img src="images/arrow-left.png"></span>{{/prevPageExists}}{{#nextPageExists}}<span class="ui-table-control-next" data-columns-page="{{nextPage}}"><img src="images/arrow-right.png"></span>{{/nextPageExists}}{{^nextPageExists}}<span class="ui-table-control-disabled"><img src="images/arrow-right.png"></span>{{/nextPageExists}}</span></div></div>{{/table}}',
-        
-        
+        template: '<!-- Search Box: Only rendered while search is true -->  {{#search}} <div class="ui-columns-search">     <input class="ui-table-search" placeholder="Search" type="text" name="query" data-columns-search="true" value="{{query}}" /> </div> {{/search}} <!-- Search Box: Only rendered while search is true -->  <!-- Columns Table: Only rendered while table is true -->  {{#table}} <div class="ui-columns-table" data-columns-table="true">     <table class="ui-table">                  <!-- Columns Table Head: Headers have 4 possible states (sortable, notSortable, sortedUp, sortedDown) -->         <thead>             {{#headers}}                  {{#sortable}}                     <th class="ui-table-sortable" data-columns-sortby="{{key}}">{{header}}</th>                 {{/sortable}}                                  {{#notSortable}}                     <th class="">{{header}}</th>                 {{/notSortable}}                                  {{#sortedUp}}                     <th class="ui-table-sort-up ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25B2;</span></th>                 {{/sortedUp}}                                  {{#sortedDown}}                     <th class="ui-table-sort-down ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25BC;</span></th>                 {{/sortedDown}}              {{/headers}}             </thead>         <!-- Columns Table Head: Headers have 4 possible states (sortable, notSortable, sortedUp, sortedDown) -->                  <!-- Columns Table Body: Table columns are rendered outside of this template  -->         <tbody>             {{#rows}}                 {{{.}}}             {{/rows}}         </tbody>         <!-- Columns Table Body: Table columns are rendered outside of this template  -->          </table>               <!-- Columns Controls  -->     <div class="ui-table-footer">         <span class="ui-table-size">Show rows: {{{showRowsMenu}}}</span>          <span class="ui-table-results">Results:             <strong>{{resultRange.start}} &ndash; {{resultRange.end}}</strong> of             <strong>{{tableTotal}}</strong>         </span>          <span class="ui-table-controls">             {{#prevPageExists}}                  <span class="ui-table-control-prev" data-columns-page="{{prevPage}}">                     <img src="images/arrow-left.png">                 </span>             {{/prevPageExists}}                          {{^prevPageExists}}                 <span class="ui-table-control-disabled">                     <img src="images/arrow-left.png">                 </span>             {{/prevPageExists}}                                       {{#nextPageExists}}                 <span class="ui-table-control-next" data-columns-page="{{nextPage}}">                     <img src="images/arrow-right.png">                 </span>             {{/nextPageExists}}                          {{^nextPageExists}}                 <span class="ui-table-control-disabled">                     <img src="images/arrow-right.png">                 </span>             {{/nextPageExists}}         </span>     </div>     <!-- Columns Controls  -->      </div> {{/table}} <!-- Columns Table: Only rendered while table is true --> ',
+
+        //functionality
+        conditioning: true,
+        paginating: true,
+        searching: true,
+        sorting: true,
+
+
+        //Handlers
+        pageHandler: function() {
+            this.create();
+        },
+        searchHandler: function(event) { 
+            if(this.liveSearch) {
+                this.create();
+            } else {
+                if(event.keyCode == '13') {
+                    this.create();
+                }
+            }
+        },
+        sizeHandler: function() {
+            this.create();
+        },
+        sortHandler: function() {
+            this.page = 1;
+            this.create();
+        },
+
         //API 
         getObject: function() {
             return this;
@@ -544,9 +597,43 @@ if (!window.console) {
         pageExists: function(p) {
             return (p > 0 && p <= this.pages) ? true : false;
         },
-        resetData: function() {
+        resetData: function(d) {
             this.data = this.master.slice(0);
             return this.data;
+        },
+        setMaster: function(d) {
+            if ($.isArray(d)) {
+                this.master = d;
+                return true;
+            } 
+
+            return false;
+        },
+        setRange: function() { 
+            var start = ((this.page -1) * (this.size));
+            var end = (start + this.size < this.total) ? start + this.size : this.total;
+        
+            this.range = {"start":start+1, "end":end};
+        },
+        setTotal: function(t) {
+            this.total = t;
+
+            return true;
+        },
+
+        //performance tracking
+        startTime: null, 
+        endTime: null,
+        startTimer: function() { 
+            var now = new Date();
+            this.startTime =  now.getTime(); 
+        }, 
+        endTimer: function() {
+            var now = new Date(); 
+            this.endTime =  now.getTime();
+        },
+        getTimer: function() { 
+            console.log((this.endTime - this.startTime)/1000);
         }
     };
     
