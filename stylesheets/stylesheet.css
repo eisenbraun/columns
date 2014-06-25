@@ -79,6 +79,7 @@ h2 {
 
 h3 {
   font-size: 24px;
+  padding-top: 20px;
 }
 
 h4 {
@@ -133,7 +134,7 @@ strong {
   font-weight: bold;
 }
 
-img {
+/*img {
   position: relative;
   margin: 0 auto;
   max-width: 739px;
@@ -146,7 +147,7 @@ img {
   -moz-box-shadow: 0 0 5px #ebebeb;
   -o-box-shadow: 0 0 5px #ebebeb;
   -ms-box-shadow: 0 0 5px #ebebeb;
-}
+}*/
 
 p img {
   display: inline;
@@ -231,7 +232,7 @@ hr {
   background: url('../images/bg_hr.png') repeat-x center;
 }
 
-table {
+/*table {
   border: 1px solid #373737;
   margin-bottom: 20px;
   text-align: left;
@@ -247,7 +248,7 @@ th {
 td {
   padding: 10px;
   border: 1px solid #373737;
- }
+ }*/
 
 form {
   background: #f2f2f2;
