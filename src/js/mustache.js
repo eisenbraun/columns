@@ -6,11 +6,7 @@
 /*global define: false*/
 
 (function (global, factory) {
-  if (typeof exports === "object" && exports) {
-    factory(exports); // CommonJS
-  } else {
     global.Mustache = factory({}); // <script>
-  }
 }(this, function (mustache) {
 
   var Object_toString = Object.prototype.toString;
