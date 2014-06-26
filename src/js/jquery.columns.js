@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  *
  * Author: Michael Eisenbraun
- * Version: 2.2.0
+ * Version: 2.2.1
  * Requires: jQuery 1.7.2+
  * Documentation: http://eisenbraun.github.io/columns/
  */
@@ -58,7 +58,7 @@ if (!window.console) {
         }
         
         /** PLUGIN CONSTANTS */
-        this.VERSION = '2.2.0';
+        this.VERSION = '2.2.1';
 
         /** PLUGIN METHODS */
 
@@ -278,9 +278,9 @@ if (!window.console) {
                 var tr = [];
                 
                 if (key%2 === 0) {
-                    tr.push('<tr class="'+$this.evenRowClass+'">');
+                    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.evenRowClass+'">');
                 } else {
-                    tr.push('<tr class="'+$this.oddRowClass+'">');
+                    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.oddRowClass+'">');
                 }
                  
                 $.each($this.schema, function(key, col) {
