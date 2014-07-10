@@ -370,6 +370,8 @@ if (!window.console) {
                 $('[data-columns-table]', $this.$el).remove();
                 $this.$el.append($this.chevron($this.template, $this.view));
             }
+
+            return true;
         };
         
         this.init = function() {
@@ -552,12 +554,7 @@ if (!window.console) {
         },
 
         //API
-        createTable: function() { 
-            this.create(); 
-            return true;
-        },
         destroy: function() {
-            console.log(this.$el);
             this.$el.data('columns', null); 
             return true;
         }, 
@@ -617,6 +614,10 @@ if (!window.console) {
             } 
 
             return false;
+        },
+        setPage: function(p) { 
+            this.page = (this.pageExists(p) ? p : this.page); 
+            return this.page; 
         },
         setRange: function() { 
             var start = ((this.page -1) * (this.size));
