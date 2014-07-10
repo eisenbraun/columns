@@ -551,7 +551,16 @@ if (!window.console) {
             this.create();
         },
 
-        //API 
+        //API
+        createTable: function() { 
+            this.create(); 
+            return true;
+        },
+        destroy: function() {
+            console.log(this.$el);
+            this.$el.data('columns', null); 
+            return true;
+        }, 
         getObject: function() {
             return this;
         },
