@@ -1,15 +1,17 @@
 {
     "name": "columns",
     "title": "jQuery Columns",
-    "description": "jQuery plugin for searching, sorting, and paginating JSON Data.",
+    "description": "jQuery plugin for searching, sorting, and paginating JSON Data and displaying the result into an HTML Table",
     "keywords": [
         "columns",
         "table",
         "paginate",
-        "sorting"
-        
+        "sorting",
+        "searching",
+        "filtering",
+        "JSON"
     ],
-    "version": "2.2.1",
+    "version": "2.2.2",
     "author": {
         "name": "Michael Eisenbraun"
     },
