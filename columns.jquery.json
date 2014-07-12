@@ -1,7 +1,7 @@
 {
     "name": "columns",
     "title": "jQuery Columns",
-    "description": "jQuery plugin for searching, sorting, and paginating JSON Data and displaying the result into an HTML Table",
+    "description": "A jQuery plugin to create a HTML tables from a JSON data source. It supports paging, searching, sorting, and theming. Columns is flexible and extensible with an API and support for plugins and custom templates.",
     "keywords": [
         "columns",
         "table",
