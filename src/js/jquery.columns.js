@@ -106,7 +106,7 @@ if (!window.console) {
                 };
             }
             
-            if ($this.sortBy && typeof $this.data[0][$this.sortBy] !== 'undefined') {
+            if ($this.total && $this.sortBy && typeof $this.data[0][$this.sortBy] !== 'undefined') {
                 $this.data.sort(objectSort($this.sortBy, $this.reverse));
             }
         };
@@ -323,12 +323,17 @@ if (!window.console) {
             function buildTable() {
                 $this.rows = [];
 
-                $.each($this.data, function(key, row) {
-                    if (key === 0) {
-                        buildThead();
-                    }
-                    $this.rows.push(buildRows(key, row).join(''));
-                });
+                if($this.total) {
+                    $.each($this.data, function(key, row) {
+                        if (key === 0) {
+                            buildThead();
+                        }
+                        $this.rows.push(buildRows(key, row).join(''));
+                    });
+                } else { 
+                    $this.rows.push('<tr class="'+$this.evenRowClass+'"><td colspan="'+$this.schema.length+'"><em>No Results</em></td>');
+
+                }
             }
             
             buildTable();
@@ -555,7 +560,8 @@ if (!window.console) {
 
         //API
         destroy: function() {
-            this.$el.data('columns', null); 
+            this.$el.data('columns', null);
+            this.$el.empty();
             return true;
         }, 
         getObject: function() {
