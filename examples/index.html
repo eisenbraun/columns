@@ -131,7 +131,7 @@
         </section>
 
         <section>
-        <h2>Example 5: Large Data Set</h2>
+        <h2>Example 5: Using a large data set</h2>
         <div id="example5"></div>
         <pre class="prettyprint">
                 <code>
@@ -151,7 +151,7 @@
 
 
         <section>
-        <h2>Example 6: Using Go To Page Plugin</h2>
+        <h2>Example 6: Using GoToPage plugin</h2>
         <div id="example6"></div>
         <pre class="prettyprint">
                 <code>
@@ -178,7 +178,7 @@
         </section>
 
         <section>
-        <h2>Example 7: Using Ajax Paging Plugin</h2>
+        <h2>Example 7: Using AjaxPaging plugin</h2>
         <div id="example7"></div>
         <pre class="prettyprint">
             <code>
@@ -195,6 +195,55 @@
             }); 
         }
     }); 
+        </code>
+        </pre>
+        </section>
+
+        <section>
+        <h2>Example 8: Destroying old table and creating new table</h2>
+        <div id="example8"></div>
+        <button id="example8Button">Create New Table</button>
+        <pre class="prettyprint">
+            <code>
+
+    $.ajax({
+        url:'data.json',
+        dataType: 'json', 
+        success: function(json) { 
+            example8 = $('#example8').columns({
+                data:json,
+                schema: [
+                    {"header":"ID", "key":"id", "template":"000{{id}}"},
+                    {"header":"Name", "key":"name"},
+                    {"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'},
+                    {"header":"Gender", "key":"gender"}
+                ]
+
+            }); 
+        }
+    });
+
+    $('#example8Button').click(function() { 
+        $('#example8').columns('destroy');
+
+        $.ajax({
+            url:'data.json',
+            dataType: 'json', 
+            success: function(json) { 
+                example8 = $('#example8').columns({
+                    data:json,
+                    schema: [
+                        {"header":"Name", "key":"name"},
+                        {"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'},
+                        {"header":"Address", "key":"address"},
+                        {"header":"City", "key":"city"},
+                        {"header":"State", "key":"state"}
+                        {"header":"Zip", "key":"zip"}
+                    ]
+                });
+            }
+        });
+    });
         </code>
         </pre>
         </section>
@@ -309,6 +358,47 @@
                         plugins:['ajaxpaging']
                     }); 
                 }
+            });
+
+            //example 8 
+            $.ajax({
+                url:'data.json',
+                dataType: 'json', 
+                success: function(json) { 
+                    example8 = $('#example8').columns({
+                        data:json,
+                        templateFile: '../templates/default.mst',
+                        schema: [
+                            {"header":"ID", "key":"id", "template":"000{{id}}"},
+                            {"header":"Name", "key":"name"},
+                            {"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
+                            {"header":"Gender", "key":"gender"}
+                        ]
+
+                    }); 
+                }
+            });
+
+            $('#example8Button').click(function() { 
+                $('#example8').columns('destroy');
+
+                $.ajax({
+                    url:'data.json',
+                    dataType: 'json', 
+                    success: function(json) { 
+                        example8 = $('#example8').columns({
+                            data:json,
+                            schema: [
+                                {"header":"Name", "key":"name"},
+                                {"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
+                                {"header":"Address", "key":"address"},
+                                {"header":"City", "key":"city"},
+                                {"header":"State", "key":"state"},
+                                {"header":"Zip", "key":"zip"}
+                            ]
+                        });
+                    }
+                });
             });
 
             $('#theme').change(function() {

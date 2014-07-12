@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  *
  * Author: Michael Eisenbraun
- * Version: 2.2.1
+ * Version: 2.2.2
  * Requires: jQuery 1.7.2+
  * Documentation: http://eisenbraun.github.io/columns/
  */
@@ -58,7 +58,7 @@ if (!window.console) {
         }
         
         /** PLUGIN CONSTANTS */
-        this.VERSION = '2.2.1';
+        this.VERSION = '2.2.2';
 
         /** PLUGIN METHODS */
 
@@ -106,7 +106,7 @@ if (!window.console) {
                 };
             }
             
-            if ($this.sortBy && typeof $this.data[0][$this.sortBy] !== 'undefined') {
+            if ($this.total && $this.sortBy && typeof $this.data[0][$this.sortBy] !== 'undefined') {
                 $this.data.sort(objectSort($this.sortBy, $this.reverse));
             }
         };
@@ -323,12 +323,17 @@ if (!window.console) {
             function buildTable() {
                 $this.rows = [];
 
-                $.each($this.data, function(key, row) {
-                    if (key === 0) {
-                        buildThead();
-                    }
-                    $this.rows.push(buildRows(key, row).join(''));
-                });
+                if($this.total) {
+                    $.each($this.data, function(key, row) {
+                        if (key === 0) {
+                            buildThead();
+                        }
+                        $this.rows.push(buildRows(key, row).join(''));
+                    });
+                } else { 
+                    $this.rows.push('<tr class="'+$this.evenRowClass+'"><td colspan="'+$this.schema.length+'"><em>No Results</em></td>');
+
+                }
             }
             
             buildTable();
@@ -370,6 +375,8 @@ if (!window.console) {
                 $('[data-columns-table]', $this.$el).remove();
                 $this.$el.append($this.chevron($this.template, $this.view));
             }
+
+            return true;
         };
         
         this.init = function() {
@@ -521,7 +528,7 @@ if (!window.console) {
         sortBy: null,
         table: true,
         templateFile: null,
-        template: '<!-- Search Box: Only rendered while search is true -->  {{#search}} <div class="ui-columns-search">     <input class="ui-table-search" placeholder="Search" type="text" name="query" data-columns-search="true" value="{{query}}" /> </div> {{/search}} <!-- Search Box: Only rendered while search is true -->  <!-- Columns Table: Only rendered while table is true -->  {{#table}} <div class="ui-columns-table" data-columns-table="true">     <table class="ui-table">                  <!-- Columns Table Head: Headers have 4 possible states (sortable, notSortable, sortedUp, sortedDown) -->         <thead>             {{#headers}}                  {{#sortable}}                     <th class="ui-table-sortable" data-columns-sortby="{{key}}">{{header}}</th>                 {{/sortable}}                                  {{#notSortable}}                     <th class="">{{header}}</th>                 {{/notSortable}}                                  {{#sortedUp}}                     <th class="ui-table-sort-up ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25B2;</span></th>                 {{/sortedUp}}                                  {{#sortedDown}}                     <th class="ui-table-sort-down ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25BC;</span></th>                 {{/sortedDown}}              {{/headers}}             </thead>         <!-- Columns Table Head: Headers have 4 possible states (sortable, notSortable, sortedUp, sortedDown) -->                  <!-- Columns Table Body: Table columns are rendered outside of this template  -->         <tbody>             {{#rows}}                 {{{.}}}             {{/rows}}         </tbody>         <!-- Columns Table Body: Table columns are rendered outside of this template  -->          </table>               <!-- Columns Controls  -->     <div class="ui-table-footer">         <span class="ui-table-size">Show rows: {{{showRowsMenu}}}</span>          <span class="ui-table-results">Results:             <strong>{{resultRange.start}} &ndash; {{resultRange.end}}</strong> of             <strong>{{tableTotal}}</strong>         </span>          <span class="ui-table-controls">             {{#prevPageExists}}                  <span class="ui-table-control-prev" data-columns-page="{{prevPage}}">                     <img src="images/arrow-left.png">                 </span>             {{/prevPageExists}}                          {{^prevPageExists}}                 <span class="ui-table-control-disabled">                     <img src="images/arrow-left.png">                 </span>             {{/prevPageExists}}                                       {{#nextPageExists}}                 <span class="ui-table-control-next" data-columns-page="{{nextPage}}">                     <img src="images/arrow-right.png">                 </span>             {{/nextPageExists}}                          {{^nextPageExists}}                 <span class="ui-table-control-disabled">                     <img src="images/arrow-right.png">                 </span>             {{/nextPageExists}}         </span>     </div>     <!-- Columns Controls  -->      </div> {{/table}} <!-- Columns Table: Only rendered while table is true --> ',
+        template: '<!-- Search Box: Only rendered while search is true --> {{#search}} <div class="ui-columns-search"> <input class="ui-table-search" placeholder="Search" type="text" name="query" data-columns-search="true" value="{{query}}" /> </div> {{/search}} <!-- Search Box: Only rendered while search is true --> <!-- Columns Table: Only rendered while table is true --> {{#table}} <div class="ui-columns-table" data-columns-table="true"> <table class="ui-table"> <!-- Columns Table Head: Headers have 4 possible states (sortable, notSortable, sortedUp, sortedDown) --> <thead> {{#headers}} {{#sortable}} <th class="ui-table-sortable" data-columns-sortby="{{key}}">{{header}}</th> {{/sortable}} {{#notSortable}} <th class="">{{header}}</th> {{/notSortable}} {{#sortedUp}} <th class="ui-table-sort-up ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25B2;</span></th> {{/sortedUp}} {{#sortedDown}} <th class="ui-table-sort-down ui-table-sortable" data-columns-sortby="{{key}}">{{header}} <span class="ui-arrow">&#x25BC;</span></th> {{/sortedDown}} {{/headers}} </thead> <!-- Columns Table Head: Headers have 4 possible states (sortable, notSortable, sortedUp, sortedDown) --> <!-- Columns Table Body: Table columns are rendered outside of this template  --> <tbody> {{#rows}} {{{.}}} {{/rows}} </tbody> <!-- Columns Table Body: Table columns are rendered outside of this template  --> </table> <!-- Columns Controls  --> <div class="ui-table-footer"> <span class="ui-table-size">Show rows: {{{showRowsMenu}}}</span> <span class="ui-table-results">Results: <strong>{{resultRange.start}} &ndash; {{resultRange.end}}</strong> of <strong>{{tableTotal}}</strong> </span> <span class="ui-table-controls"> {{#prevPageExists}} <span class="ui-table-control-prev" data-columns-page="{{prevPage}}"> <img src="images/arrow-left.png"> </span> {{/prevPageExists}} {{^prevPageExists}} <span class="ui-table-control-disabled"> <img src="images/arrow-left.png"> </span> {{/prevPageExists}} {{#nextPageExists}} <span class="ui-table-control-next" data-columns-page="{{nextPage}}"> <img src="images/arrow-right.png"> </span> {{/nextPageExists}} {{^nextPageExists}} <span class="ui-table-control-disabled"> <img src="images/arrow-right.png"> </span> {{/nextPageExists}} </span> </div> <!-- Columns Controls  --> </div> {{/table}} <!-- Columns Table: Only rendered while table is true -->',
 
         //functionality
         conditioning: true,
@@ -551,7 +558,12 @@ if (!window.console) {
             this.create();
         },
 
-        //API 
+        //API
+        destroy: function() {
+            this.$el.data('columns', null);
+            this.$el.empty();
+            return true;
+        }, 
         getObject: function() {
             return this;
         },
@@ -608,6 +620,10 @@ if (!window.console) {
             } 
 
             return false;
+        },
+        setPage: function(p) { 
+            this.page = (this.pageExists(p) ? p : this.page); 
+            return this.page; 
         },
         setRange: function() { 
             var start = ((this.page -1) * (this.size));
