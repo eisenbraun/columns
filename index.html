@@ -127,6 +127,69 @@
       }
   });</code></pre>
 
+<hr><p><strong>Example 4: Using a conditional statement</strong></p>
+<div id="example4"></div>
+<pre class="prettyprint"><code>$.ajax({
+      url:'data.json',
+      dataType: 'json', 
+      success: function(json) { 
+          example4 = $('#example4').columns({
+              data:json,
+              schema: [
+                  {"header":"ID", "key":"id", "template":"000{{id}}"},
+                  {"header":"Name", "key":"name"},
+                  {"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'},
+                  {"header":"Gender", "key":"gender", "condition":function(val) {return (val=="male");}}
+              ]
+
+          }); 
+      }
+  });</code></pre>
+
+
+<hr><p><strong>Example 5: Destroying an old table and creating a new table</strong></p>
+<div id="example5"></div>
+<button id="example5Button">Create New Table</button>
+<pre class="prettyprint"><code>$.ajax({
+        url:'data.json',
+        dataType: 'json', 
+        success: function(json) { 
+            example5 = $('#example5').columns({
+                data:json,
+                schema: [
+                    {"header":"ID", "key":"id", "template":"000{{id}}"},
+                    {"header":"Name", "key":"name"},
+                    {"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'},
+                    {"header":"Gender", "key":"gender"}
+                ]
+
+            }); 
+        }
+    });
+
+    $('#example5Button').click(function() { 
+        $('#example5').columns('destroy');
+
+        $.ajax({
+            url:'data.json',
+            dataType: 'json', 
+            success: function(json) { 
+                example8 = $('#example8').columns({
+                    data:json,
+                    schema: [
+                        {"header":"Name", "key":"name"},
+                        {"header":"Email", "key":"email", "template":'&lt;a href="mailto:{{email}}"&gt;{{email}}&lt;/a&gt;'},
+                        {"header":"Address", "key":"address"},
+                        {"header":"City", "key":"city"},
+                        {"header":"State", "key":"state"}
+                        {"header":"Zip", "key":"zip"}
+                    ]
+                });
+            }
+        });
+    });</code></pre>
+
+
 <h3>
 <a name="options" class="anchor" href="#options"><span class="octicon octicon-link"></span></a>Options</h3>
 
@@ -834,6 +897,64 @@ $('#columns').columns({
 
                     }); 
                 }
+            });
+
+            //example 4
+            $.ajax({
+                url:'data.json',
+                dataType: 'json', 
+                success: function(json) { 
+                    example4 = $('#example4').columns({
+                        data:json,
+                        schema: [
+                            {"header":"ID", "key":"id", "template":"000{{id}}"},
+                            {"header":"Name", "key":"name", "template":'{{#name}} {{name}} {{/name}} {{^name}} Unknown Author {{/name}}'},
+                            {"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
+                            {"header":"Gender", "key":"gender", "condition":function(val) {return (val=="male");}}
+                        ]
+ 
+                    }); 
+                }
+            });
+
+            //example 5 
+            $.ajax({
+                url:'data.json',
+                dataType: 'json', 
+                success: function(json) { 
+                    example8 = $('#example5').columns({
+                        data:json,
+                        schema: [
+                            {"header":"ID", "key":"id", "template":"000{{id}}"},
+                            {"header":"Name", "key":"name"},
+                            {"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
+                            {"header":"Gender", "key":"gender"}
+                        ]
+
+                    }); 
+                }
+            });
+
+            $('#example5Button').click(function() { 
+                $('#example5').columns('destroy');
+
+                $.ajax({
+                    url:'data.json',
+                    dataType: 'json', 
+                    success: function(json) { 
+                        example8 = $('#example5').columns({
+                            data:json,
+                            schema: [
+                                {"header":"Name", "key":"name"},
+                                {"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
+                                {"header":"Address", "key":"address"},
+                                {"header":"City", "key":"city"},
+                                {"header":"State", "key":"state"},
+                                {"header":"Zip", "key":"zip"}
+                            ]
+                        });
+                    }
+                });
             });
     </script>
   </body>
