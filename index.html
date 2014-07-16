@@ -556,7 +556,29 @@ $('#columns').columns({
 <h3>
 <a name="api" class="anchor" href="#api"><span class="octicon octicon-link"></span></a>API</h3>
 
-<p><strong>getObject</strong> </p>
+<p><strong>create</strong> </p>
+
+<p>This method creates the Columns table on demand.</p>
+
+<p>External call:</p>
+
+<pre class="prettyprint"><code>$('#columns').columns('create');
+</code></pre>
+
+<p>To call internally from a plugin use <code>this.create()</code>.</p>
+
+<hr><p><strong>destroy</strong> </p>
+
+<p>This method destroys all Columns data associated with the selector and removes it from the DOM. This method is necessary for reinitializing Columns.</p>
+
+<p>External call:</p>
+
+<pre class="prettyprint"><code>$('#columns').columns('destroy');
+</code></pre>
+
+<p>To call internally from a plugin use <code>this.destroy()</code>.</p>
+
+<hr><p><strong>getObject</strong> </p>
 
 <p>This method returns Columns' object</p>
 
@@ -573,7 +595,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getPage');
+<pre class="prettyprint"><code>var current_page = $('#columns').columns('getPage');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.page</code>.</p>
@@ -584,7 +606,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getQuery');
+<pre class="prettyprint"><code>var search_query = $('#columns').columns('getQuery');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.query</code>.</p>
@@ -595,7 +617,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getRange');
+<pre class="prettyprint"><code>var range = $('#columns').columns('getRange');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.range</code>.</p>
@@ -606,7 +628,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getRows');
+<pre class="prettyprint"><code>var rows = $('#columns').columns('getRows');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.rows</code>.</p>
@@ -617,7 +639,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getTemplate');
+<pre class="prettyprint"><code>var template = $('#columns').columns('getTemplate');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.template</code>.</p>
@@ -628,7 +650,7 @@ $('#columns').columns({
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getThead');
+<pre class="prettyprint"><code>var thead = $('#columns').columns('getThead');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.thead</code>.</p>
@@ -638,7 +660,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getTotal');
+<pre class="prettyprint"><code>var total = $('#columns').columns('getTotal');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.total</code>.</p>
@@ -649,7 +671,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('getView');
+<pre class="prettyprint"><code>var columns_view = $('#columns').columns('getView');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.view</code>.</p>
@@ -660,7 +682,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('gotoPage', 3);
+<pre class="prettyprint"><code>$('#columns').columns('gotoPage', 3);
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.gotoPage(3)</code>.</p>
@@ -671,7 +693,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('pageExists', 3);
+<pre class="prettyprint"><code>var page_exists = $('#columns').columns('pageExists', 3);
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.pageExists(3)</code>.</p>
@@ -682,7 +704,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('resetData');
+<pre class="prettyprint"><code>$('#columns').columns('resetData');
 </code></pre>
 
 <p>To call internally from a plugin use <code>this.resetDate()</code>.</p>
@@ -693,7 +715,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('setMaster', data);</code></pre>
+<pre class="prettyprint"><code>$('#columns').columns('setMaster', data);</code></pre>
 
 <p>To call internally from a plugin use <code>this.setMaster(data)</code>.</p>
 
@@ -703,7 +725,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('setRange');</code></pre>
+<pre class="prettyprint"><code>$('#columns').columns('setRange');</code></pre>
 
 <p>To call internally from a plugin use <code>this.setRange()</code>.</p>
 
@@ -713,7 +735,7 @@ This method returns an interger of the table's current total. Note: This is tota
 
 <p>External call:</p>
 
-<pre class="prettyprint"><code>var columns_object = $('#columns').columns('setTotal', 100);</code></pre>
+<pre class="prettyprint"><code>$('#columns').columns('setTotal', 100);</code></pre>
 
 <p>To call internally from a plugin use <code>this.setTotal(100)</code>.</p>
 
