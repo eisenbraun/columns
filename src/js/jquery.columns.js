@@ -168,6 +168,14 @@ if (!window.console) {
             
             $this.data = $this.data.slice($this.range.start-1,$this.range.end);
 
+            /** filling blank rows **/
+            if ($this.blank) {
+                var gap = $this.size - $this.data.length;
+                for (var i = 0; i < gap; i++) {
+                    $this.data.push($this.blank);
+                }
+            }
+            
         };
 
         /**
