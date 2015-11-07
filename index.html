@@ -1,3 +1,18 @@
+Skip to content
+This repository  
+Search
+Pull requests
+Issues
+Gist
+ @eisenbraun
+ Unwatch 10
+  Unstar 33
+  Fork 14 eisenbraun/columns
+ Branch: gh-pages  columns/index.html
+139dd57  on Jul 16, 2014
+@eisenbraun eisenbraun Added more examples
+1 contributor
+RawBlameHistory     962 lines (671 sloc)  34 KB
 <!DOCTYPE html>
 <html>
 
@@ -460,6 +475,22 @@ $('#columns').columns({
 });
 </code></pre>
 
+<hr><p><strong>hide</strong> <em>(Boolean)</em></p>
+
+<p>If true, prevents the column from being display. The data within the object is still
+available to be used by other columns.</p>
+
+<pre class="prettyprint"><code>var json = [{"col1":"1", "col2":"one"}, {"col1":"2", "col2":"two"}, {"col1":"3", "col2":"three"}];
+
+$('#columns').columns({ 
+  data: json,
+  schema:[
+      {"header":"Numbers","key":"col1"},
+      {"header":"Words","key":"col2", "hide": true}
+  ]
+});
+</code></pre>
+
 <hr><p><strong>key</strong> <em>(String)</em></p>
 
 <p>REQUIRED. The corresponding data attribute key for this columns data.</p>
@@ -894,11 +925,9 @@ $('#columns').columns({
                             {"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
                             {"header":"Gender", "key":"gender"}
                         ]
-
                     }); 
                 }
             });
-
             //example 4
             $.ajax({
                 url:'data.json',
@@ -916,7 +945,6 @@ $('#columns').columns({
                     }); 
                 }
             });
-
             //example 5 
             $.ajax({
                 url:'data.json',
@@ -930,14 +958,11 @@ $('#columns').columns({
                             {"header":"Email", "key":"email", "template":'<a href="mailto:{{email}}">{{email}}</a>'},
                             {"header":"Gender", "key":"gender"}
                         ]
-
                     }); 
                 }
             });
-
             $('#example5Button').click(function() { 
                 $('#example5').columns('destroy');
-
                 $.ajax({
                     url:'data.json',
                     dataType: 'json', 
