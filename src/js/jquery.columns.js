@@ -195,7 +195,8 @@ if (!window.console) {
 
                 for (var row = 0; row < dataLength; row++) {
                     var data = $this.data[row],
-                    temp = {};
+                    //temp = {};
+		    temp = data;
                     
                     for (var key = 0; key < schemaLength; key++) {
                         var val = $this.schema[key]; 
@@ -207,7 +208,7 @@ if (!window.console) {
                             }
                         }
                         
-                        temp[val.key] = data[val.key];
+                        //temp[val.key] = data[val.key];
                     }
                     
                     if (temp) {
@@ -279,11 +280,19 @@ if (!window.console) {
 
             function buildRows(key, row) {
                 var tr = [];
-                
+
                 if (key%2 === 0) {
-                    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.evenRowClass+'">');
+			if(row.hasOwnProperty('rowClass')) {
+			    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.evenRowClass+' '+row['rowClass']+'">');
+			} else {
+			    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.evenRowClass+'">');
+			}
                 } else {
-                    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.oddRowClass+'">');
+			if(row.hasOwnProperty('rowClass')) {
+			    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.oddRowClass+' '+row['rowClass']+'">');
+			} else {
+			    tr.push('<tr data-columns-row-id="'+key+'" class="'+$this.oddRowClass+'">');
+			}
                 }
                  
                 $.each($this.schema, function(key, col) {
